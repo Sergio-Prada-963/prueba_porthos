@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_request_demo_1" model="hr.request">
+        <field name="nombre">Solicitud de Vacaciones Diciembre</field>
+        <field name="tipo">vacaciones</field>
+        <field name="fecha_solicitud">2026-12-01</field>
+        <field name="estado">nuevo</field>
+        <field name="empleado_id" ref="employee_demo_1"/>
+        <field name="observaciones">Solicitud de vacaciones para el mes de diciembre.</field>
+    </record>
+
+    <record id="hr_request_demo_2" model="hr.request">
+        <field name="nombre">Permiso Médico</field>
+        <field name="tipo">permiso</field>
+        <field name="fecha_solicitud">2026-05-20</field>
+        <field name="estado">aprobado</field>
+        <field name="empleado_id" ref="employee_demo_2"/>
+        <field name="observaciones">Permiso por cita médica urgente.</field>
+    </record>
+
+    <record id="hr_request_demo_3" model="hr.request">
+        <field name="nombre">Anticipo Quincena</field>
+        <field name="tipo">anticipo</field>
+        <field name="fecha_solicitud">2026-05-15</field>
+        <field name="estado">rechazado</field>
+        <field name="empleado_id" ref="employee_demo_1"/>
+        <field name="observaciones">Solicitud de anticipo de quincena.</field>
+    </record>
+
+</odoo>

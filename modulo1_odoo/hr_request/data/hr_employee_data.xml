@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="employee_demo_1" model="hr.employee">
+        <field name="name">Juan Pérez</field>
+        <field name="work_email">juan.perez@empresa.com</field>
+        <field name="job_title">Desarrollador</field>
+    </record>
+
+    <record id="employee_demo_2" model="hr.employee">
+        <field name="name">María López</field>
+        <field name="work_email">maria.lopez@empresa.com</field>
+        <field name="job_title">Analista</field>
+    </record>
+
+</odoo>

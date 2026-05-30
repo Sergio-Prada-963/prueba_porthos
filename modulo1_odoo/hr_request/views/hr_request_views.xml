@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hr_request_form" model="ir.ui.view">
+            <field name="name">hr.request.form</field>
+            <field name="model">hr.request</field>
+            <field name="arch" type="xml">
+                <form string="Solicitud">
+                    <header>
+                        <field name="estado" widget="statusbar" readonly="true"/>
+                        <button name="aprobar_solicitud" type="object" 
+                            string="Aprobar" 
+                            class="btn-success" 
+                            groups="base.group_system"
+                            invisible = "estado != 'nuevo'"/>
+                        <button name="rechazar_solicitud" type="object" 
+                            string="Rechazar" 
+                            class="btn-danger" 
+                            groups="base.group_system"
+                            invisible = "estado != 'nuevo'"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="nombre"/>
+                            <h1>
+                                <field name="nombre" 
+                                    required="true" 
+                                    placeholder="ej. Vacaciones 2026"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="detalles" string="Detalles de la Solicitud">
+                                <field name="tipo" required="true"/>
+                                <field name="empleado_id" 
+                                    options="{'no_create': True}" 
+                                    required="true"/>
+                            </group>
+                            <group name="fechas" string="Fecha">
+                                <field name="fecha_solicitud" required="true"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Observaciones" name="observaciones_page">
+                                <field name="observaciones"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_request_tree" model="ir.ui.view">
+            <field name="name">hr.request.tree</field>
+            <field name="model">hr.request</field>
+            <field name="arch" type="xml">
+                <tree string="Solicitudes">
+                    <field name="nombre"/>
+                    <field name="empleado_id"/>
+                    <field name="tipo"/>
+                    <field name="fecha_solicitud"/>
+                    <field name="estado"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_request_filter" model="ir.ui.view">
+            <field name="name">hr.request.search</field>
+            <field name="model">hr.request</field>
+            <field name="arch" type="xml">
+                <search string="Jobs">
+                    <field name="nombre" string="Nombre"/>
+                    <separator/>
+                    <filter name="estado_nuevo" string="Estado nuevo" domain="[('estado', '=', 'nuevo')]"/>
+                    <filter name="estado_aprobado" string="Estado aprobado" domain="[('estado', '=', 'aprobado')]"/>
+                    <filter name="estado_rechazado" string="Estado rechazado" domain="[('estado', '=', 'rechazado')]"/>
+                    <filter name="tipo_vacaciones" string="Tipo vacaciones" domain="[('tipo', '=', 'vacaciones')]"/>
+                    <filter name="tipo_permiso" string="Tipo permiso" domain="[('tipo', '=', 'permiso')]"/>
+                    <filter name="tipo_anticipo" string="Tipo anticipo" domain="[('tipo', '=', 'anticipo')]"/>
+                    <filter name="tipo_otro" string="Tipo otro" domain="[('tipo', '=', 'otro')]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar por empleado">
+                        <filter string="Empleado" name="empleado" context="{'group_by': 'empleado_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_request" model="ir.actions.act_window">
+            <field name="name">Solicitudes</field>
+            <field name="res_model">hr.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_request_filter"/>
+        </record>
+
+        <menuitem
+            id="menu_hr_request_root"
+            name="Solicitudes"
+            action="action_hr_request"
+            sequence="100"/>
+
+        <menuitem
+            id="menu_hr_request_list"
+            name="Solicitudes"
+            parent="menu_hr_request_root"
+            action="action_hr_request"
+            sequence="1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16
+    container_name: odoo17_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo123
+    volumes:
+      - odoo17-db:/var/lib/postgresql/data
+
+  odoo:
+    image: odoo:17
+    container_name: odoo17_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8070:8069"
+    environment:
+      HOST: db
+      USER: odoo
+      PASSWORD: odoo123
+    volumes:
+      - odoo17-data:/var/lib/odoo
+      - ./hr_request:/mnt/extra-addons/hr_request
+
+volumes:
+  odoo17-db:
+  odoo17-data:
